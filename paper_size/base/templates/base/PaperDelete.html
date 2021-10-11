@@ -1,0 +1,15 @@
+<a href="{% url 'home' %}">Главная</a>
+
+{% if request.user.is_authenticated %}
+<p>{{request.user}}</p>
+<a href="{% url 'papers' %}">Мои публикации</a>
+<a href="{% url 'logout' %}">Выйти</a>
+{% endif %}
+
+<hr>
+
+<form method="POST">
+	{% csrf_token %}
+	<p>Вы действительно хотите удалить публикацию "{{paper}}"?</p>
+	<input type="submit" value="Удалить">
+</form>

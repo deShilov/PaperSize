@@ -1,0 +1,11 @@
+<a href="{% url 'home' %}">Главная</a>
+
+<h1>Вход</h1>
+
+<form method="POST">
+	{% csrf_token %}
+	{{form.as_p}}
+	<input type="submit" value="Войти">
+</form>
+
+<p>Ещё нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>

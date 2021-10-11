@@ -1,0 +1,38 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<p>{{request.user}}</p>
+<a href="{% url 'papers' %}">Мои публикации</a>
+<a href="{% url 'logout' %}">Выйти</a>
+{% else %}
+<a href="{% url 'login' %}">Войти</a>
+<a href="{% url 'register' %}">Зарегистрироваться</a>
+{% endif %}
+<hr>
+
+<h1>Все публикации</h1>
+
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for paper in papers %}
+    <tr>   
+        <p>--------------------</p>
+        <p><a>{{paper.user}}</a></p>
+        <p><a href="{% url 'paper' paper.id %}">{{paper.title}}</a></p>
+        <p><a">{{paper.description}}</a></p>
+        {% if request.user == paper.user %}
+        <p><a href="{% url 'paper-update' paper.id %}">Edit</a></p>
+        <p><a href="{% url 'paper-delete' paper.id %}">Delete</a></p>
+        <p>--------------------</p>
+        {% endif %}
+    </tr>
+    {% empty %}
+    <h3>No items in list</h3>
+    {% endfor %}
+</table> 
+
+{% endblock content %}
